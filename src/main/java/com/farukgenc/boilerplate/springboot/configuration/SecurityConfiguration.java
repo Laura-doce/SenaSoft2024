@@ -41,8 +41,7 @@ public class SecurityConfiguration {
 		return http
 				.csrf(CsrfConfigurer::disable)
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-				.authorizeHttpRequests(request -> request.requestMatchers("/register",
-																	      "/login",
+				.authorizeHttpRequests(request -> request.requestMatchers("/login",
 																	      "/v3/api-docs/**",
 																          "/swagger-ui/**",
 																	      "/swagger-ui.html",

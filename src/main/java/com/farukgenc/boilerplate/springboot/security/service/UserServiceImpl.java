@@ -2,10 +2,7 @@ package com.farukgenc.boilerplate.springboot.security.service;
 
 import com.farukgenc.boilerplate.springboot.service.UserValidationService;
 import com.farukgenc.boilerplate.springboot.model.User;
-import com.farukgenc.boilerplate.springboot.model.UserRole;
 import com.farukgenc.boilerplate.springboot.security.dto.AuthenticatedUserDto;
-import com.farukgenc.boilerplate.springboot.security.dto.RegistrationRequest;
-import com.farukgenc.boilerplate.springboot.security.dto.RegistrationResponse;
 import com.farukgenc.boilerplate.springboot.security.mapper.UserMapper;
 import com.farukgenc.boilerplate.springboot.utils.GeneralMessageAccessor;
 import com.farukgenc.boilerplate.springboot.repository.UserRepository;
@@ -40,23 +37,6 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByUsername(username);
 	}
 
-	@Override
-	public RegistrationResponse registration(RegistrationRequest registrationRequest) {
-
-		userValidationService.validateUser(registrationRequest);
-
-		final User user = UserMapper.INSTANCE.convertToUser(registrationRequest);
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
-		userRepository.save(user);
-
-		final String username = registrationRequest.getUsername();
-		final String registrationSuccessMessage = generalMessageAccessor.getMessage(null, REGISTRATION_SUCCESSFUL, username);
-
-		log.info("{} registered successfully!", username);
-
-		return new RegistrationResponse(registrationSuccessMessage);
-	}
 
 	@Override
 	public AuthenticatedUserDto findAuthenticatedUserByUsername(String username) {

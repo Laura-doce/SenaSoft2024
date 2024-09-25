@@ -1,9 +1,7 @@
 package com.farukgenc.boilerplate.springboot.service;
 
 import com.farukgenc.boilerplate.springboot.utils.ExceptionMessageAccessor;
-import com.farukgenc.boilerplate.springboot.exceptions.RegistrationException;
 import com.farukgenc.boilerplate.springboot.repository.UserRepository;
-import com.farukgenc.boilerplate.springboot.security.dto.RegistrationRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,25 +24,11 @@ public class UserValidationService {
 
 	private final ExceptionMessageAccessor exceptionMessageAccessor;
 
-	public void validateUser(RegistrationRequest registrationRequest) {
-
-
-		final String username = registrationRequest.getUsername();
-
-		checkUsername(username);
-	}
 
 	private void checkUsername(String username) {
 
 		final boolean existsByUsername = userRepository.existsByUsername(username);
 
-		if (existsByUsername) {
-
-			log.warn("{} is already being used!", username);
-
-			final String existsUsername = exceptionMessageAccessor.getMessage(null, USERNAME_ALREADY_EXISTS);
-			throw new RegistrationException(existsUsername);
-		}
 
 	}
 
