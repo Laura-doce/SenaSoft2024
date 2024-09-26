@@ -7,28 +7,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
-@Table(name = "gen_p_eps")
+@Table(name = "orden")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Eps {
+public class Orden {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long numero_orden;
 
     @Column(length = 8)
     private String codigo;
 
-    @Column(length = 250, name = "razonsocial")
-    private String razonSocial;
-
-    @Column(length = 20)
-    private String nit;
-
     @Column
-    private Boolean habilita;
+    private Date fechaOrden;
 
 }

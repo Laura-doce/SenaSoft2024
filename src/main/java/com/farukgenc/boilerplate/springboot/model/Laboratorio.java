@@ -8,25 +8,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "fac_p_cups")
+@Table(name = "laboratorio")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Cups {
+public class Laboratorio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 8)
-    private String codigo;
+    @Enumerated(EnumType.STRING)
+    private GrupoSanguineo grupoSanguineo;
 
-    @Column(length = 500)
-    private String nombre;
 
-    @Column
-    private Boolean habilita;
+    @Enumerated(EnumType.STRING)
+    private Procedimientos procedimiento;
 
+    @ManyToOne
+    @JoinColumn(name = "Resultados")
+    private Resultados resultados;
 }

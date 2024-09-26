@@ -3,20 +3,20 @@ server:
     enabled: true
 
 spring:
+  main:
+    debug: true
   datasource:
-    url: jdbc:postgresql://${POSTGRES_DB_SERVER_ADDRESS:localhost}:${POSTGRES_DB_SERVER_PORT:5432}/SENA - R-FAST
+    url: jdbc:postgresql://${POSTGRES_DB_SERVER_ADDRESS:localhost}:${POSTGRES_DB_SERVER_PORT:5432}/
     username: ${POSTGRES_USER:postgres}
     password: ${POSTGRES_PASSWORD:sena}
     hikari:
       pool-name: SpringBootBoilerplateHikariPool
-
   jpa:
     show-sql: true
 
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     open-in-view: false
-
   jta:
     enabled: false
 

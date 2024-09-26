@@ -7,18 +7,18 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "gen_m_persona")
+@Table(name = "paciente")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Persona {
+public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false, length = 20)
-    private Integer numeroId;
+    private String numeroIdentificacion;
 
     @Column(nullable = false, length = 20)
     private String apellido1;
@@ -32,19 +32,19 @@ public class Persona {
     @Column(length = 20)
     private String nombre2;
 
-    @Column(nullable = false, unique = true, name = "fechanac")
+    @Column(nullable = false, unique = true)
     private Date fechaNacimiento;
 
     @Column
     private String direccion;
 
-    @Column(name = "tel_movil")
+    @Column
     private String telefono;
 
     @Column
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "id_sexobiologico")
-    private ListaOpciones listaOpciones;
+    @Enumerated(EnumType.STRING)
+    private SexoBiologico sexo;
 }
+

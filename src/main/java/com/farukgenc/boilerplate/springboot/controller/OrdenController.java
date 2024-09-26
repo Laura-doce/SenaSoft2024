@@ -1,12 +1,19 @@
 package com.farukgenc.boilerplate.springboot.controller;
 
 
-import com.farukgenc.boilerplate.springboot.model.Tarjetero;
+import com.farukgenc.boilerplate.springboot.model.Orden;
 import com.farukgenc.boilerplate.springboot.security.service.OrderService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 
 @RestController
@@ -21,24 +28,20 @@ public class OrdenController {
     }
 
     /*@GetMapping("/consultar")
-    public ResponseEntity<List<AnuncioR>> consultar() {
-        List<AnuncioR> anuncios = orderService.findAllNombresYTitulos();
+    public ResponseEntity<List<Orden>> consultar() {
+        List<Orden> orders = orderService.findAll(orders);
 
-        return ResponseEntity.ok(anuncios);
+        return ResponseEntity.ok(orders);
 
     }*/
-
-
-
-    @PostMapping("/crear")
-    public ResponseEntity<String> createAnuncio(@RequestBody Tarjetero orden) {
-        try {
-            this.orderService.save(orden);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Anuncio creado exitosamente");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    @GetMapping("/consult")
+    public ResponseEntity<Page<Orden>> getAll(@PageableDefault(size = 10) Pageable pageable){
+        Page<Orden> ordenPage = orderService.findAll(pageable);
+        return ResponseEntity.ok(ordenPage);
     }
+
+
+
+
 }
 
